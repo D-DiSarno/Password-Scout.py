@@ -4,7 +4,7 @@ import ssl
 from socket import socket, AF_INET, SOCK_STREAM
 from ssl import SSLContext, PROTOCOL_TLS_SERVER
 from Loader import *
-#from main import select_actions
+from main import select_actions
 import ast
 import netifaces
 
@@ -58,4 +58,4 @@ def init_server():
 
             print(f'Client Says: {welcome_mex}')
 
-           # select_actions(ast.literal_eval("".join(map(chr, data))), connection, key)
+            select_actions(ast.literal_eval("".join(map(chr, data))), connection, key)

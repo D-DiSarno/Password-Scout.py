@@ -5,6 +5,22 @@ import pyfiglet
 import pandas as pd
 import copy
 
+def login():
+    while True:
+     print('\n --- Insert username --- ')
+     username=input()
+     if username == "":
+      print(" ERROR - Username cannot be null \n")
+      continue
+     print('\n --- Insert password --- ')
+     password=input()
+     if password == "":
+      print(" ERROR - Passowrd cannot be null \n")
+      continue
+
+    #send credenziali a Esp-metodo getUser
+
+
 
 def select_actions(json_credentials, connection, key):
     enc_or_dec_print = True
@@ -59,6 +75,6 @@ if __name__ == '__main__':
     print(pyfiglet.figlet_format(" Password\n     Scout", font="slant"))
 
     try:
-        init_server()
+     init_server()
     except:
-        print("\n[ERROR] Something was wrong: connection refused.")
+     print("\n[ERROR] Something was wrong: connection refused.")
