@@ -49,26 +49,25 @@ def select_actions(json_credentials, connection, key):
         print("\nInsert action: ")
 
         option = input()
-        match option:
-            case '1':
-                print("\n add_credential(json_credentials, connection)")
-            case '2':
-                print("\n update_credential(json_credentials, connection)")
-            case '3':
-                print("\n delete_credential(json_credentials, connection)")
-            case '4':
-                print("\n view_credential(json_credentials, connection)")
-            case 'quit':
-                exit(connection)
-            case _:
-                while True:
-                    print("Option not valid. Retry [Y/n]")
-                    select = input()
+        if option == '1':
+            print("\n add_credential(json_credentials, connection)")
+        elif option == '2':
+            print("\n update_credential(json_credentials, connection)")
+        elif option == '3':
+            print("\n delete_credential(json_credentials, connection)")
+        elif option == '4':
+            print("\n view_credential(json_credentials, connection)")
+        elif option == 'quit':
+            exit(connection)
+        else:
+            while True:
+                print("Option not valid. Retry [Y/n]")
+                select = input()
 
-                    if select.casefold() == 'y':
-                        break
-                    elif select.casefold() == 'n':
-                        return
+                if select.casefold() == 'y':
+                    break
+                elif select.casefold() == 'n':
+                    return
 
 
 if __name__ == '__main__':
