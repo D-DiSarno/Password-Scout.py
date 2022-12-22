@@ -1,5 +1,3 @@
-
-
 import ssl
 from socket import socket, AF_INET, SOCK_STREAM
 from ssl import SSLContext, PROTOCOL_TLS_SERVER

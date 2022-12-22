@@ -5,21 +5,21 @@ import pyfiglet
 import pandas as pd
 import copy
 
+
 def login():
     while True:
-     print('\n --- Insert username --- ')
-     username=input()
-     if username == "":
-      print(" ERROR - Username cannot be null \n")
-      continue
-     print('\n --- Insert password --- ')
-     password=input()
-     if password == "":
-      print(" ERROR - Passowrd cannot be null \n")
-      continue
+        print('\n --- Insert username --- ')
+        username = input()
+        if username == "":
+            print(" ERROR - Username cannot be null \n")
+            continue
+        print('\n --- Insert password --- ')
+        password = input()
+        if password == "":
+            print(" ERROR - Passowrd cannot be null \n")
+            continue
 
-    #send credenziali a Esp-metodo getUser
-
+    # send credenziali a Esp-metodo getUser
 
 
 def select_actions(json_credentials, connection, key):
@@ -28,10 +28,11 @@ def select_actions(json_credentials, connection, key):
     while True:
         print("\n\n##################################\n"
               "# Select an action:              #\n"
-              "# 1. Add                         #\n"
-              "# 2. Update                      #\n"
-              "# 3. Delete                      #\n"
-              "# 4. Show decrypted credentials  #\n"
+              "# 1. Login                       #\n"
+              "# 2. Create new user             #\n"
+              "# 3. Add credential              #\n"
+              "# 4. Delete credential           #\n"
+              "# 5. Show credential             #\n"
               "# 'quit' to Exit                 #\n"
               "##################################\n")
 
@@ -75,6 +76,6 @@ if __name__ == '__main__':
     print(pyfiglet.figlet_format(" Password\n     Scout", font="slant"))
 
     try:
-     init_server()
+        init_server()
     except:
-     print("\n[ERROR] Something was wrong: connection refused.")
+        print("\n[ERROR] Something was wrong: connection refused.")

@@ -1,6 +1,6 @@
 import sys
 
-#from mbedtls import cipher
+# from mbedtls import cipher
 
 import pandas as pd
 import copy
@@ -16,7 +16,7 @@ def add_credential(json_credentials, connection):
     while True:
         print('Please insert Application Name: ')
         name = input().strip()
-        #print(f"Is '{name}' correct? [Y/n]")
+        # print(f"Is '{name}' correct? [Y/n]")
 
         option = input()
         if option.casefold() == 'y':
@@ -366,9 +366,6 @@ def delete_credential(json_credentials, connection):
                 return
 
 
-
-
-
 def exit(connection):
     connection.close()  # close the connection
     sys.exit()
@@ -376,7 +373,7 @@ def exit(connection):
 
 def decrypt_credentials(json_credentials, key):
     json_credentials_tmp = copy.deepcopy(json_credentials)
-    c = "X"#cipher.AES.new(key, cipher.MODE_ECB, b"sssssssss")
+    c = "X"  # cipher.AES.new(key, cipher.MODE_ECB, b"sssssssss")
     print(key)
 
     for entry in json_credentials_tmp:
