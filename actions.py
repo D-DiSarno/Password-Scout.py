@@ -378,9 +378,7 @@ def decrypt_credentials(json_credentials, key):
 
 
 def register_user(connection):
-    print('\n--- Delete credentials ---')
-    username = ""
-    password = ""
+    print('\n--- Register user ---')
 
     while True:
         print("Insert your username: ")
@@ -393,6 +391,7 @@ def register_user(connection):
                 continue
         elif option.casefold() == 'n':
             continue
+        break
 
     while True:
         print("Insert your password: ")
@@ -405,9 +404,17 @@ def register_user(connection):
                 continue
         elif option.casefold() == 'n':
             continue
+        break
 
-    connection.sendAll((b'1-' + username.encode('utf-8') +
+    connection.sendall((b'1-' + username.encode('utf-8') +
                         b'-' + password.encode('utf-8')))
+    result = int(connection.recv(2).decode('utf-8'))  # LEGGI QUI PER CAPIRE COME RICEVERE DATI
+    if result == 1:
+        print("Error during the user creation.")
+    elif result == 2:
+        print("Username already in use, please choose another")
+    else:
+        print("User added succesfully")
 
 
 def exit_connection(connection):

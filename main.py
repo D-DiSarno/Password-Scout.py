@@ -95,8 +95,4 @@ def select_actions(connection):
 
 if __name__ == '__main__':
     print(pyfiglet.figlet_format(" Password\n     Scout", font="slant"))
-
-    try:
-        init_server()
-    except:
-        print("\n[ERROR] Something was wrong: connection refused.")
+    init_server()
