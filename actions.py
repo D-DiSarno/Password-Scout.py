@@ -366,7 +366,7 @@ def delete_credential(json_credentials, connection):
                 return
 
 
-def exit(connection):
+def exit_connection(connection):
     connection.close()  # close the connection
     sys.exit()
 

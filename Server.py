@@ -3,7 +3,6 @@ from socket import socket, AF_INET, SOCK_STREAM
 from ssl import SSLContext, PROTOCOL_TLS_SERVER
 from Loader import *
 from main import select_actions
-import ast
 import netifaces
 
 
@@ -26,7 +25,8 @@ def init_server():
     context.load_cert_chain("certs/server/domain.pem", "certs/server/domainK.pem")
 
     # client authentication
-    context.load_verify_locations("certs/clients/domainClient.pem")
+    context.verify_mode = ssl.CERT_REQUIRED
+    context.load_verify_locations("certs/CA/rootCA.pem")
 
     with socket(AF_INET, SOCK_STREAM) as server:
         server.bind((ip, port))
@@ -35,25 +35,4 @@ def init_server():
             connection, address = tls.accept()
             loader.stop()
             print(f'Connected by {address}')
-            welcome_mex = connection.recv(12).decode('utf-8')
-
-            # remove \r\n
-            connection.recv(2)
-            key = connection.recv(16)
-
-            # remove \r\n
-            connection.recv(2)
-            con_len = int(connection.recv(6).decode('utf-8'))
-
-            # remove \r\n
-            connection.recv(2)
-
-            data = bytearray()
-            max_chunk = 16384
-            num_chunks = int(con_len / max_chunk)
-            for i in range(0, num_chunks + 1):
-                data.extend(connection.recv(max_chunk))
-
-            print(f'Client Says: {welcome_mex}')
-
-            select_actions(ast.literal_eval("".join(map(chr, data))), connection, key)
+            select_actions(connection)
