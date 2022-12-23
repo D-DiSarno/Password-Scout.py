@@ -1,11 +1,10 @@
 import sys
 
-# from mbedtls import cipher
-
 import pandas as pd
 import copy
 
 
+'''
 def add_credential(json_credentials, connection):
     if len(json_credentials) >= 100:
         print(" ERROR - No storage space avaible on ESP32 \n")
@@ -366,11 +365,6 @@ def delete_credential(json_credentials, connection):
                 return
 
 
-def exit_connection(connection):
-    connection.close()  # close the connection
-    sys.exit()
-
-
 def decrypt_credentials(json_credentials, key):
     json_credentials_tmp = copy.deepcopy(json_credentials)
     c = "X"  # cipher.AES.new(key, cipher.MODE_ECB, b"sssssssss")
@@ -380,7 +374,45 @@ def decrypt_credentials(json_credentials, key):
         entry['username'] = c.decrypt(entry['username'].encode()).decode('utf-8'),
         entry['password'] = c.decrypt(entry['password'].encode()).decode('utf-8'),
 
-    print(pd.DataFrame(data=json_credentials_tmp))
+    print(pd.DataFrame(data=json_credentials_tmp))'''
+
+
+def register_user(connection):
+    print('\n--- Delete credentials ---')
+    username = ""
+    password = ""
+
+    while True:
+        print("Insert your username: ")
+        username = input().strip()
+        print(f"Is '{username}' correct? [Y/n]")
+        option = input()
+        if option.casefold() == 'y':
+            if username == "":
+                print(" ERROR - The username cannot be null \n")
+                continue
+        elif option.casefold() == 'n':
+            continue
+
+    while True:
+        print("Insert your password: ")
+        password = input().strip()
+        print(f"Is '{password}' correct? [Y/n]")
+        option = input()
+        if option.casefold() == 'y':
+            if password == "":
+                print(" ERROR - The password cannot be null \n")
+                continue
+        elif option.casefold() == 'n':
+            continue
+
+    connection.sendAll((b'1-' + username.encode('utf-8') +
+                        b'-' + password.encode('utf-8')))
+
+
+def exit_connection(connection):
+    connection.close()  # close the connection
+    sys.exit()
 
 
 def option_invalid():
