@@ -6,7 +6,7 @@ import pyfiglet
 logged = False
 username = ""
 password = ""
-
+rfidAuthenticated = False
 
 '''def login():
     while True:
@@ -40,6 +40,12 @@ def signup():
 def select_actions(connection):
     while True:
         if logged:
+            #QUI RFID
+            print("--- Scan the RFID card ---")
+            while rfidAuthenticated == False:
+              #fino a quando è falsa non fa niente
+              rfidAuthentication(connection)
+
             print("\n\n##################################\n"
                   "# Select an action:              #\n"
                   "# 1. Add credential              #\n"

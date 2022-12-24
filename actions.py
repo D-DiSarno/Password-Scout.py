@@ -1,5 +1,5 @@
 import sys
-
+from main import rfidAuthenticated
 import pandas as pd
 import copy
 
@@ -417,8 +417,17 @@ def register_user(connection):
         print("User added succesfully")
 
 
+def rfidAuthentication(connection):
+  #send string request
+  connection.sendAll(b'6-') #immagino arrivi cosi al case 6
+  #ACK per dire che è tornato? Server operation return True
+  #if(connection.riceve(TRUE)?
+  return True
+
+
 def exit_connection(connection):
     connection.close()  # close the connection
+    rfidAuthenticated = False
     sys.exit()
 
 
