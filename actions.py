@@ -377,44 +377,19 @@ def decrypt_credentials(json_credentials, key):
     print(pd.DataFrame(data=json_credentials_tmp))'''
 
 
-def register_user(connection):
-    print('\n--- Register user ---')
-
-    while True:
-        print("Insert your username: ")
-        username = input().strip()
-        print(f"Is '{username}' correct? [Y/n]")
-        option = input()
-        if option.casefold() == 'y':
-            if username == "":
-                print(" ERROR - The username cannot be null \n")
-                continue
-        elif option.casefold() == 'n':
-            continue
-        break
-
-    while True:
-        print("Insert your password: ")
-        password = input().strip()
-        print(f"Is '{password}' correct? [Y/n]")
-        option = input()
-        if option.casefold() == 'y':
-            if password == "":
-                print(" ERROR - The password cannot be null \n")
-                continue
-        elif option.casefold() == 'n':
-            continue
-        break
-
+def register_user(connection, username, password):
     connection.sendall((b'1-' + username.encode('utf-8') +
                         b'-' + password.encode('utf-8')))
     result = int(connection.recv(2).decode('utf-8'))  # LEGGI QUI PER CAPIRE COME RICEVERE DATI
     if result == 1:
         print("Error during the user creation.")
+        return False
     elif result == 2:
         print("Username already in use, please choose another")
+        return False
     else:
         print("User added succesfully")
+        return True
 
 
 def rfidAuthentication(connection):

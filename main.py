@@ -84,10 +84,44 @@ def select_actions(connection):
             option = input()
             if option == '1':
                 print("\n login_user(username, password)")
+
             elif option == '2':
-                register_user(connection)
+                print('\n--- Register user ---')
+
+                while True:
+                    print("Insert your username: ")
+                    _username = input().strip()
+                    print(f"Is '{_username}' correct? [Y/n]")
+                    option = input()
+                    if option.casefold() == 'y':
+                        if _username == "":
+                            print(" ERROR - The username cannot be null \n")
+                            continue
+                    elif option.casefold() == 'n':
+                        continue
+                    break
+
+                while True:
+                    print("Insert your password: ")
+                    _password = input().strip()
+                    print(f"Is '{_password}' correct? [Y/n]")
+                    option = input()
+                    if option.casefold() == 'y':
+                        if _password == "":
+                            print(" ERROR - The password cannot be null \n")
+                            continue
+                    elif option.casefold() == 'n':
+                        continue
+                    break
+
+                if register_user(connection, _username, _password):
+                    username = _username
+                    password = _password
+                    logged = True
+
             elif option == 'quit':
                 exit_connection(connection)
+
             else:
                 while True:
                     print("Option not valid. Retry [Y/n]")
