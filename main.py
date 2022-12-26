@@ -3,68 +3,32 @@ from Server import *
 
 import pyfiglet
 
-logged = False
-username = ""
-password = ""
-rfidAuthenticated = False
-
-'''def login():
-    while True:
-        print('\n --- Insert username --- ')
-        username = input()
-        if username == "":
-            print(" ERROR - Username cannot be null \n")
-            continue
-        print('\n --- Insert password --- ')
-        password = input()
-        if password == "":
-            print(" ERROR - Passowrd cannot be null \n")
-            continue
-
-
-def signup():
-    while True:
-        print('\n --- Insert username --- ')
-        username = input()
-        if username == "":
-            print(" ERROR - Username cannot be null \n")
-            continue
-        print('\n --- Insert password --- ')
-        password = input()
-        if password == "":
-            print(" ERROR - Passowrd cannot be null \n")
-            continue
-    return'''
-
 
 def select_actions(connection):
+    logged = False
+    username = ""
+    password = ""
+    tag = ""
+
     while True:
         if logged:
-            #QUI RFID
-            print("--- Scan the RFID card ---")
-            while rfidAuthenticated == False:
-
-               if rfidAuthentication(connection):
-                   rfidAuthenticated = True
-
             print("\n\n##################################\n"
                   "# Select an action:              #\n"
-                  "# 1. Add credential              #\n"
-                  "# 2. Delete credential           #\n"
-                  "# 3. Show credential             #\n"
+                  "# 1. Add credentials             #\n"
+                  "# 2. Delete credentials          #\n"
+                  "# 3. Show credentials            #\n"
                   "# 'quit' to Exit                 #\n"
                   "##################################\n")
             print("\nInsert action: ")
 
             option = input()
             if option == '1':
-                add_credential(connection,username,password)
+                add_credential(connection, username, password, tag)
             elif option == '2':
-                print("\n delete_credential(service)")
+                delete_credential(connection, username, password, tag)
             elif option == '3':
-                print("\n view_credential(service)")
+                view_credential(connection, username, password, tag)
             elif option == 'quit':
-                rfidAuthenticated = False
                 exit_connection(connection)
             else:
                 while True:
@@ -82,40 +46,34 @@ def select_actions(connection):
                   "# 2. Register                    #\n"
                   "##################################\n")
             print("\nInsert action: ")
-
             option = input()
+
             if option == '1':
                 print("\n --- Login ---")
-            while True:
-                print("Insert your username: ")
-                _username = input().strip()
-                print(f"Is '{_username}' correct? [Y/n]")
-                option = input()
-                if option.casefold() == 'y':
+                while True:
+                    print("Insert your username: ")
+                    _username = input().strip()
                     if _username == "":
                         print(" ERROR - The username cannot be null \n")
                         continue
-                elif option.casefold() == 'n':
-                    continue
-                break
+                    else:
+                        break
 
-            while True:
-                print("Insert your password: ")
-                _password = input().strip()
-                print(f"Is '{_password}' correct? [Y/n]")
-                option = input()
-                if option.casefold() == 'y':
+                while True:
+                    print("Insert your password: ")
+                    _password = input().strip()
                     if _password == "":
                         print(" ERROR - The password cannot be null \n")
                         continue
-                elif option.casefold() == 'n':
-                    continue
-                break
+                    else:
+                        break
 
-            if login_user(connection, _username, _password):
-                username = _username
-                password = _password
-                logged = True
+                _res = login_user(connection, _username, _password)
+                if _res != "":
+                    username = _username
+                    password = _password
+                    tag = _res
+                    logged = True
 
             elif option == '2':
                 print('\n--- Register user ---')
@@ -146,9 +104,11 @@ def select_actions(connection):
                         continue
                     break
 
-                if register_user(connection, _username, _password):
+                _res = register_user(connection, _username, _password)
+                if _res != "":
                     username = _username
                     password = _password
+                    tag = _res
                     logged = True
 
             elif option == 'quit':
