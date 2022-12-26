@@ -385,12 +385,23 @@ def register_user(connection, username, password):
         print("Error during the user creation.")
         return False
     elif result == 2:
-        print("Username already in use, please choose another")
-        return False
-    else:
         print("User added succesfully")
         return True
 
+
+def login_user(connection,username,password):
+    connection.sendall((b'2-' + username.encode('utf-8') +
+                        b'-' + password.encode('utf-8')))
+    result = int(connection.recv(2).decode('utf-8'))
+    if result == 1:
+        print("Error during the user login.")
+        return False
+    elif result == 2:
+        print("Username noy stored in memory ")
+        return False
+    else:
+        print("User logged succesfully")
+        return True
 
 def rfidAuthentication(connection):
     connection.sendAll(b'6-')
@@ -398,7 +409,7 @@ def rfidAuthentication(connection):
     print("TEST: "+ result)
     if result :
      print("Authenticated")
-     rfidAuthenticated = True
+     #rfidAuthenticated = True
      return True
     else:
      return False

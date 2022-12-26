@@ -43,8 +43,9 @@ def select_actions(connection):
             #QUI RFID
             print("--- Scan the RFID card ---")
             while rfidAuthenticated == False:
-              #fino a quando è falsa non fa niente
-              rfidAuthentication(connection)
+
+               if rfidAuthentication(connection):
+                   rfidAuthenticated = True
 
             print("\n\n##################################\n"
                   "# Select an action:              #\n"
@@ -63,6 +64,7 @@ def select_actions(connection):
             elif option == '3':
                 print("\n view_credential(service)")
             elif option == 'quit':
+                rfidAuthenticated = False
                 exit_connection(connection)
             else:
                 while True:
@@ -83,7 +85,37 @@ def select_actions(connection):
 
             option = input()
             if option == '1':
-                print("\n login_user(username, password)")
+                print("\n --- Login ---")
+            while True:
+                print("Insert your username: ")
+                _username = input().strip()
+                print(f"Is '{_username}' correct? [Y/n]")
+                option = input()
+                if option.casefold() == 'y':
+                    if _username == "":
+                        print(" ERROR - The username cannot be null \n")
+                        continue
+                elif option.casefold() == 'n':
+                    continue
+                break
+
+            while True:
+                print("Insert your password: ")
+                _password = input().strip()
+                print(f"Is '{_password}' correct? [Y/n]")
+                option = input()
+                if option.casefold() == 'y':
+                    if _password == "":
+                        print(" ERROR - The password cannot be null \n")
+                        continue
+                elif option.casefold() == 'n':
+                    continue
+                break
+
+            if login_user(connection, _username, _password):
+                username = _username
+                password = _password
+                logged = True
 
             elif option == '2':
                 print('\n--- Register user ---')
