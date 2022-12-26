@@ -393,11 +393,15 @@ def register_user(connection, username, password):
 
 
 def rfidAuthentication(connection):
-  #send string request
-  connection.sendAll(b'6-') #immagino arrivi cosi al case 6
-  #ACK per dire che è tornato? Server operation return True
-  #if(connection.riceve(TRUE)?
-  return True
+    connection.sendAll(b'6-')
+    result = int(connection.recv(2).decode('utf-8'))
+    print("TEST: "+ result)
+    if result :
+     print("Authenticated")
+     rfidAuthenticated = True
+     return True
+    else:
+     return False
 
 
 def exit_connection(connection):
