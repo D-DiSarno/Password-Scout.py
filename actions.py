@@ -400,6 +400,7 @@ def login_user(connection,username,password):
         print("Username noy stored in memory ")
         return False
     else:
+
         print("User logged succesfully")
         return True
 
@@ -430,3 +431,66 @@ def option_invalid():
             return True
         elif select.casefold() == 'n':
             return False
+
+
+def add_credential(connection,username,password):
+    print('\n --- Insert new credentials --- ')
+
+    while True:
+        print('Please insert Service Name: ')
+        name = input().strip()
+        # print(f"Is '{name}' correct? [Y/n]")
+
+        option = input()
+        if option.casefold() == 'y':
+            if name == "":
+                print(" ERROR - The name cannot be null \n")
+        continue
+
+
+           """ for entry_name in json_credentials:
+                if entry_name['name'] == name:
+                    print(" ERROR - Name already stored in memory \n")
+                    flag = True
+                    break
+           """
+
+            while True:
+                            print('\nPlease insert Password: ')
+                            passwordCredential = input().strip()
+                            print(f"Is '{passwordCredential}' correct? [Y/n]")
+
+                            option = input()
+                            if option.casefold() == 'y':
+                                if passwordCredential == "":
+                                    print(" ERROR - The password cannot be null \n")
+                                    continue
+
+                                entry_enc = {'name': name, 'username': '**************', 'password': '**************'}
+
+
+                                connection.sendall(b'1-' + name.encode('utf-8') +
+                                                   b'-' + username.encode('utf-8') +
+                                                   b'-' + password.encode('utf-8'))
+                                return
+
+                            elif option.casefold() == 'n':
+                                continue
+
+                            else:
+                                if not option_invalid():
+                                    return
+
+                    elif option.casefold() == 'n':
+                        continue
+
+                    else:
+                        if not option_invalid():
+                            return
+
+        elif option.casefold() == 'n':
+            continue
+
+        else:
+            if not option_invalid():
+                return

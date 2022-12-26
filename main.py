@@ -58,7 +58,7 @@ def select_actions(connection):
 
             option = input()
             if option == '1':
-                print("\n add_credential(service, password)")
+                add_credential(connection,username,password)
             elif option == '2':
                 print("\n delete_credential(service)")
             elif option == '3':
