@@ -17,17 +17,23 @@ def select_actions(connection):
                   "# 1. Add credentials             #\n"
                   "# 2. Delete credentials          #\n"
                   "# 3. Show credentials            #\n"
+                  "# 4. Logout                      #\n"
                   "# 'quit' to Exit                 #\n"
                   "##################################\n")
             print("\nInsert action: ")
-
             option = input()
+
             if option == '1':
                 add_credential(connection, username, password, tag)
             elif option == '2':
                 delete_credential(connection, username, password, tag)
             elif option == '3':
                 view_credential(connection, username, password, tag)
+            elif option == '4':
+                logged = False
+                username = ""
+                password = ""
+                tag = ""
             elif option == 'quit':
                 exit_connection(connection)
             else:
@@ -44,6 +50,7 @@ def select_actions(connection):
                   "# Select an action:              #\n"
                   "# 1. Login                       #\n"
                   "# 2. Register                    #\n"
+                  "# 'quit' to Exit                 #\n"
                   "##################################\n")
             print("\nInsert action: ")
             option = input()
@@ -74,7 +81,6 @@ def select_actions(connection):
                     password = _password
                     tag = _res
                     logged = True
-
             elif option == '2':
                 print('\n--- Register user ---')
 
@@ -110,10 +116,8 @@ def select_actions(connection):
                     password = _password
                     tag = _res
                     logged = True
-
             elif option == 'quit':
                 exit_connection(connection)
-
             else:
                 while True:
                     print("Option not valid. Retry [Y/n]")
