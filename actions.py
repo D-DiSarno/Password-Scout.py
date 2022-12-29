@@ -73,7 +73,7 @@ def add_credential(connection, username, password, tag):
                         '\xC6'.encode('utf-8') + hashed_password.encode('utf-8') +
                         '\xC6'.encode('utf-8') + tag.encode('utf-8') +
                         '\xC6'.encode('utf-8') + service_name.encode('utf-8') +
-                        '\xC6'.encode('utf-8') + encrypted_password))
+                        '\xC6'.encode('utf-8') + encrypted_password.encode('utf-8')))
     result = int(connection.recv(1).decode('utf-8'))
     connection.recv(2)  # remove \r\n
     if result == 1:
